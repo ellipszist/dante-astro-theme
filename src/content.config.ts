@@ -1,5 +1,6 @@
 import { glob } from 'astro/loaders';
-import { defineCollection, z, type ImageFunction } from 'astro:content';
+import { z } from 'astro/zod';
+import { defineCollection, type ImageFunction } from 'astro:content';
 
 const imageSchema = (image: ImageFunction) =>
     z.object({
@@ -12,7 +13,7 @@ const seoSchema = (image: ImageFunction) =>
         title: z.string().min(5).max(120).optional(),
         description: z.string().min(15).max(160).optional(),
         image: imageSchema(image).optional(),
-        pageType: z.enum(['website', 'article']).default('website')
+        pageType: z.enum(['website', 'article']).optional()
     });
 
 const blog = defineCollection({
